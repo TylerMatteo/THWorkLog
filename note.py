@@ -7,5 +7,4 @@ class Note:
 		self.createdAt = datetime.datetime.now()
 
 	def __str__(self):
-		return """{}
-				- {}""".format(self.content, self.createAt.strftime('%b %d, %Y - %H:%M:%S'))
+		return """{}\n- {}""".format(self.content, self.createdAt.strftime('%b %d, %Y - %H:%M:%S'))

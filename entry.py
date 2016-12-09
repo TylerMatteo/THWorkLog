@@ -1,20 +1,21 @@
 from note import Note
+import pdb
 
 class Entry:
 
-	def __init__(self, name, minutes, timestamp, *notes):
+	def __init__(self, name, minutes, timestamp, notes):
 		self.name = name
 		self.minutes = minutes
 		self.timestamp= timestamp
+		self.notes = []
 		for note in notes:
 			self.addNote(note)
 
 	def __str__(self):
-		notesConcatenated = 
-		return """{} - {}
-			Time Spent: {}
-			
-		""".format(self.name, self.timestamp)
+		notesConcatenated = "".join(str(note) + '\n\n' for note in self.notes)
+
+		return  """{} - {}\nTime Spent: {}\nNotes:\n{}
+		""".format(self.name, self.timestamp, self.minutes, notesConcatenated)
 
 	def addNote(self, noteText):
 		self.notes.append(Note(noteText))

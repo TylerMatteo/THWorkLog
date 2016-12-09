@@ -1,6 +1,7 @@
 from entry import Entry
 
 import datetime
+import pdb
 
 class Log:
 
@@ -35,6 +36,8 @@ class Log:
             elif(option.upper() == "T"):
                 break
             elif(option.upper() == "E"):
+                phrase = input("What phrase would you like to search for? ")
+                self.findByExactMatch(phrase)
                 break
             elif(option.upper() == "P"):
                 break
@@ -47,8 +50,13 @@ class Log:
     def findByTimeSpent(self):
         pass
 
-    def findByExactMatch(self):
-        pass
+    def findByExactMatch(self, phrase):
+        pdb.set_trace()
+        matches = [entry for entry in self.entries if phrase in entry.name 
+                   or phrase in "".join([note.content for note in entry.notes])]
+
+        #matches = filter((lambda entry: phrase in entry.name || phrase in " ".join([note.content for note in entry.notes])), self.entries)
+        print("".join([str(entry) + '\n' for entry in matches]))
 
     def findByPattern(self):
         pass

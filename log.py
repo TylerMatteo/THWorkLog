@@ -1,5 +1,6 @@
 from entry import Entry
 
+import re
 import datetime
 import pdb
 
@@ -34,12 +35,21 @@ class Log:
             if(option.upper() == "D"):
                 break
             elif(option.upper() == "T"):
-                break
+                while True:
+                    phrase = input("How many minutes spent are you searching for? ")
+                    try:
+                        minutes = int(phrase)
+                    except ValueError:
+                        continue
+                    break
+                self.findByTimeSpent(minutes)
             elif(option.upper() == "E"):
                 phrase = input("What phrase would you like to search for? ")
                 self.findByExactMatch(phrase)
                 break
             elif(option.upper() == "P"):
+                pattern = input("What regex would you like to search for? ")
+                self.findByPattern(pattern)
                 break
             else:
                 print("Invalid option, please try again.")
@@ -47,16 +57,22 @@ class Log:
     def findByDate(self):
         pass
 
-    def findByTimeSpent(self):
-        pass
-
-    def findByExactMatch(self, phrase):
+    def findByTimeSpent(self, minutes):
         pdb.set_trace()
-        matches = [entry for entry in self.entries if phrase in entry.name 
-                   or phrase in "".join([note.content for note in entry.notes])]
+        matches = [entry for entry in self.entries 
+                   if entry.minutes == datetime.timedelta(minutes=minutes)]
 
-        #matches = filter((lambda entry: phrase in entry.name || phrase in " ".join([note.content for note in entry.notes])), self.entries)
         print("".join([str(entry) + '\n' for entry in matches]))
 
-    def findByPattern(self):
-        pass
+    def findByExactMatch(self, phrase):
+        matches = [entry for entry in self.entries if phrase in entry.name 
+                   or any([note.content for note in entry.notes])]
+
+        print("".join([str(entry) + '\n' for entry in matches]))
+
+    def findByPattern(self, pattern):
+        matches = [entry for entry in self.entries if re.search(pattern, entry.name) is not None
+                 or any([re.search(pattern, note.content) for note in entry.notes])]
+
+        print("".join([str(entry) + '\n' for entry in matches]))
+        

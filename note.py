@@ -1,5 +1,5 @@
 import datetime
-import pdb
+
 
 class Note:
 
@@ -9,7 +9,5 @@ class Note:
 
     def __str__(self):
         template = '%b %d, %Y - %H:%M:%S'
-        return  "{}\n-{}".format(self.content,
-                         self.createdAt.strftime(template)
-                         )
-
+        return "{}\n-{}".format(self.content,
+                                self.createdAt.strftime(template))

@@ -6,11 +6,11 @@ while True:
     option = input("Would you like to enter a [n]ew entry, [l]ookup an existing one, or [q]uit? ")
 
     if(option.upper() == "N"):
-    	log.new()
+        log.new()
     elif(option.upper() == "L"):
-    	log.lookup()
+        log.lookup()
     elif(option.upper() == "Q"):
         break
     else:
-    	print("Invalid option, please try again.")
+        print("Invalid option, please try again.")
 

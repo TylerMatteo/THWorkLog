@@ -9,7 +9,7 @@ class Entry:
         self.timestamp = timestamp
         self.notes = []
         for note in notes:
-            self.addNote(note)
+            self.add_note(note)
 
     def __str__(self):
         notesConcatenated = "".join(str(note) + '\n' for note in self.notes)
@@ -17,5 +17,5 @@ class Entry:
                 """.format(self.name, self.timestamp,
                            self.minutes, notesConcatenated)
 
-    def addNote(self, noteText):
+    def add_note(self, noteText):
         self.notes.append(Note(noteText))

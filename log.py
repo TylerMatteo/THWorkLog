@@ -24,7 +24,7 @@ class Log:
         while True:
             noteText = input('Please enter notes for this task. '
                              'Enter "q" to finish. ')
-            if(noteText.upper() == "Q"):
+            if noteText.upper() == "Q":
                 break
             else:
                 notes.append(noteText)
@@ -38,8 +38,8 @@ class Log:
                            "[t]ime spent, [e]xact search, "
                            "or [p]attern match? ")
 
-            if(option.upper() == "D"):
-                self.findByDate(datetime.datetime.now())
+            if option.upper() == "D":
+                self.find_by_date(datetime.datetime.now())
                 break
             elif(option.upper() == "T"):
                 while True:
@@ -50,19 +50,19 @@ class Log:
                     except ValueError:
                         continue
                     break
-                self.findByTimeSpent(minutes)
-            elif(option.upper() == "E"):
+                self.find_by_time_spent(minutes)
+            elif option.upper() == "E":
                 phrase = input("What phrase would you like to search for? ")
-                self.findByExactMatch(phrase)
+                self.find_by_exact_match(phrase)
                 break
-            elif(option.upper() == "P"):
+            elif option.upper() == "P":
                 pattern = input("What regex would you like to search for? ")
-                self.findByPattern(pattern)
+                self.find_by_pattern(pattern)
                 break
             else:
                 print("Invalid option, please try again.")
 
-    def findByDate(self, date):
+    def find_by_date(self, date):
         # User set() to generate a unique,
         # sorted list of dates that have entries
         uniqueDates = list(set([entry.timestamp.date() for entry
@@ -77,7 +77,7 @@ class Log:
             try:
                 dateSelection = int(input("Select a date to "
                                           "view by number. "))
-                if(dateSelection in list(range(1, len(sortedDates)+1))):
+                if dateSelection in list(range(1, len(sortedDates)+1)):
                     break
                 else:
                     print("That number isn't in the list of options. "
@@ -92,7 +92,7 @@ class Log:
                       if entry.timestamp.date()
                       == sortedDates[dateSelection - 1]]))
 
-    def findByTimeSpent(self, minutes):
+    def find_by_time_spent(self, minutes):
         # Use a comprehension to grab all notes with the
         # given number of minutes
         matches = [entry for entry in self.entries
@@ -100,7 +100,7 @@ class Log:
 
         print("".join([str(entry) + '\n' for entry in matches]))
 
-    def findByExactMatch(self, phrase):
+    def find_by_exact_match(self, phrase):
         # Use a comprehension to grab all entries containing the
         # given phrase in their title or note
         matches = [entry for entry in self.entries if phrase in entry.name
@@ -108,7 +108,7 @@ class Log:
 
         print("".join([str(entry) + '\n' for entry in matches]))
 
-    def findByPattern(self, pattern):
+    def find_by_pattern(self, pattern):
         # Use a comprehension to grab all entries that have a title or
         # note content matching the given pattern
         matches = [entry for entry in self.entries
